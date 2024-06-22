@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+
 // le704
 func search(nums []int, target int) int {
 	return search3(nums, 0, len(nums)-1, target)
@@ -14,6 +15,7 @@ func main() {
 
 // 标准版
 // 前俩个版本均会多查询一次而且当只有一个元素的时候，会发生错误
+// 注意循环不变量，不要把已经查找过的再加入区间
 func search3(arr []int, left, right, target int) int {
 	for left <= right { // 注意这里通常使用<=而不是<
 		mid := left + (right-left)/2 // 避免溢出
