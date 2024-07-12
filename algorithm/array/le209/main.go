@@ -46,6 +46,7 @@ func minSubArrayLen(target int, nums []int) int {
 	sum := 0
 	var res int = len(nums) + 1 // 要返回的满足条件的最小值
 	for ; j < len(nums); j++ {
+		// i向右滑动过程
 		sum += nums[j]
 		// 如果满足条件，记录下len,此时i一直减直到不满足条件
 		for sum >= target {
