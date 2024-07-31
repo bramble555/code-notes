@@ -12,7 +12,7 @@ func removeDuplicates(nums []int) int {
 	slow := 1
 	for fast := 1; fast < len(nums); fast++ {
 		// 举例
-		//	1	2	2	2	3	3
+		//	1	2 	2	2	3	3
 		//		fast	fast	fast
 		// 		slow	slow
 		// 可以看出nums[fast]一直和nums[slow-1]比较
