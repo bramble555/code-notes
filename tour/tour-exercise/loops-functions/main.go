@@ -30,7 +30,7 @@ func Sqrt(x float64) float64 {
 }
 
 func main() {
-	num := 0.3
+	num := 2
 	fmt.Println("使用自定义sqrt结果为", Sqrt(float64(num)))
 	fmt.Println("使用模块sqrt结果为", math.Sqrt(float64(num)))
 
