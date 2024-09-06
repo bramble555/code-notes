@@ -31,6 +31,7 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer db.Close()
 	// context.Context这个类型可以携带截止时间，取消信号
 	ctx := context.Background() // 此函数连接的时候，不会被取消，也没有截止时间
 	err = db.PingContext(ctx)

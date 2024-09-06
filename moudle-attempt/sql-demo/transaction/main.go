@@ -16,7 +16,7 @@ const (
 var db *sql.DB
 var err error
 
-func init() {
+func initMysql() (err error) {
 	dns := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s",
 		user, password, dbName)
 	db, err = sql.Open("mysql", dns)
@@ -28,8 +28,14 @@ func init() {
 		panic(err)
 	}
 	fmt.Println("Connected")
+	return
 }
 func main() {
+	err = initMysql()
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
 	tranUpdate()
 }
 func tranUpdate() {
