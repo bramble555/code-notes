@@ -1,11 +1,12 @@
 package main
 
 func main() {
-	// Create()
+	// Creat
+	
 	// Insert()
 	// QueryRow()
 
 	// Update()
 	// HigerQuery()
-	CustomTpye()
+	// CustomTpye()
 }

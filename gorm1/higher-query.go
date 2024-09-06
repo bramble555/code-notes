@@ -46,7 +46,7 @@ func HigerQuery() {
 	fmt.Println("查询男女生的人数以及男生姓名和女生姓名")
 	studentList = []Student{}
 	// 原生
-	// db.Raw("select * FROM students where age >(SELECT AVG(age) FROM  students)").Scan(&studentList)
+	// ("select * FROM students where age >(SELECT AVG(age) FROM  students)").Scan(&studentList)
 	var avgAge float64
 	db.Table("students").Select("AVG(age)").Scan(&avgAge)
 	db.Model(Student{}).Where("age > ?", avgAge).Find(&studentList)
