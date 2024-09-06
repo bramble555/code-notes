@@ -16,4 +16,5 @@ func main() {
 	// 配置单个文件， 网页请求的路由，文件的路径
 	router.StaticFile("/titian.png", "static/titian.png")
 	router.Run(":8080")
+
 }
