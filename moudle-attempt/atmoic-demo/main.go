@@ -1,6 +1,6 @@
 package main
 
-import "gonotes/moudle-attempt/atmoic1/test"
+import "gonotes/moudle-attempt/atmoic-demo/test"
 
 func main() {
 	test.TestSum()

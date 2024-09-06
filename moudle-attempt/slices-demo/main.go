@@ -1,6 +1,6 @@
 package main
 
-import "gonotes/moudle-attempt/slices1/test"
+import "gonotes/moudle-attempt/slices-demo/test"
 
 func main() {
 	// test.Slices1()
