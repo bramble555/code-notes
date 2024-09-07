@@ -69,27 +69,25 @@ func (l *LogFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 }
 
 // 判断log目录是否存在
-func pathExists(path string) (bool, error) {
+func pathExists(path string) bool {
 	_, err := os.Stat(path)
-	// 目录存在
 	if err != nil {
-		return true, nil
+		if os.IsExist(err) {
+			return true
+		}
+		if os.IsNotExist(err) {
+			return false
+		}
+		log.Println(err)
+		return false
 	}
-	// 目录不存在
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	// 其他错误
-	return false, err
+	return true
 }
 func createLogFile() *os.File {
-	ok, err := pathExists("log")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	ok := pathExists("log")
 	// 目录不存在就创建目录
 	if !ok {
-		err := os.MkdirAll("log", 0666)
+		err := os.MkdirAll("log", 0777)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
