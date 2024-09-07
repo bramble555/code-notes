@@ -1,0 +1,9 @@
+host: "127.0.0.1"
+
+mysql:
+  host: "127.0.0.1"
+  database: "yaml"
+# 注意是俩个空格，冒号后面是一个空格，网上测试开头是四个空头
+  username: "root"
+  password: 123456
+  port: 3306
