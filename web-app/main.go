@@ -9,9 +9,9 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"webapp/dao/mysql"
 	"webapp/global"
 	"webapp/logger"
-	"webapp/mysql"
 	"webapp/routers"
 	"webapp/settings"
 
