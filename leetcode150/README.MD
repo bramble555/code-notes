@@ -1,0 +1,11 @@
+# Top Interview 150
+- 前四道考察双指针
+- 169.majorityElement 哈希(不是最优)
+- 189.Rotate Array 常规做法 
+- 121.maxProfit  解法一 暴力 解法二 使用动态规划,每一次计算 当天的最大利润(记录之前最小的购买价格)
+- 122.maxProfit 解法一 贪心(每次计算当前与前一天的之前，也就是利润，如果利润大于0，记录下来，很巧妙)
+- 55.从后面往前贪
+- 274.hIndex 注意读题
+- 380.RandomizedSet 哈希 map
+- 238.productExceptSelf  product:乘积 解法: 利用前缀和思想，前缀积，后缀积，找规律
+- 
