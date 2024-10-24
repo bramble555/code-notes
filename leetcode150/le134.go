@@ -2,38 +2,38 @@ package leetcode150
 
 import "fmt"
 
-// gas = [2,3,4], cost = [3,4,3]
-// 1-1
-func canCompleteCircuit(gas []int, cost []int) int {
-	n := len(gas)
-	// 查看是否循环了
-	count := 0
-	for i := 0; i < n; i++ {
-		// 每次重置 cur
-		cur := 0
-		for j := i; ; j++ {
-			j = j % n
+// gas = [2,3,4],
+// cost= [3,4,3]
+// 	   -1 1 -1
 
-			if cur+gas[j] <= cost[j] {
-				fmt.Println(i, "退出了")
-				break
-			}
-			count++
-			cur = cur + gas[j] - cost[j]
-			fmt.Println("cur:", cur)
-			fmt.Println("count:", count)
-			// 满足条件
-			if count == n {
-				// fmt.Println(count)
-				fmt.Println(i)
-				fmt.Println(j)
-				return i
-			}
-			// if cur == 0 {
-			// 	break
-			// }
+// gas = [1,2,3,4,5],
+// cost= [3,4,5,1,2]
+// 	   -2-2-2 3 3
+
+// gas = [4, 5, 2, 6, 5, 3]
+// cost= [3, 2, 7, 3, 2, 9]
+// 	    1  3 -5  3  3  -6
+
+// gas = [5,1,2,4,4]
+// cost= [4,4,1,5,1]
+//  	    1-3 1-1 3
+func canCompleteCircuit(gas []int, cost []int) int {
+	start := 0
+	n := len(gas)
+	curSum := 0
+	totalSum := 0
+	for i := 0; i < n; i++ {
+		totalSum += gas[i] - cost[i]
+		curSum += gas[i] - cost[i]
+		fmt.Println(curSum)
+		if curSum < 0 {
+			curSum = 0
+			start = i + 1
 		}
 	}
-	return -1
+	if totalSum < 0 {
+		return -1
+	}
+	return start
 
 }
