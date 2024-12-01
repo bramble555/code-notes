@@ -26,7 +26,7 @@ func migration() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	db.Stats().WaitDuration.Abs()
 	defer db.Close()
 
 	driver, err := mysql.WithInstance(db, &mysql.Config{})

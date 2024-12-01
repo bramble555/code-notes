@@ -32,14 +32,6 @@ func threeSum(nums []int) [][]int {
 			continue
 		}
 		for j < k {
-			// 这样去重j，k是错误的，为什么呢，有些结果i，j，k只改变其中俩个数字（并且和原来不重复）也去掉了(此时还没有加入结果中，但是其实符合条件)
-			// 去重
-			// if j > i+1 && nums[j] == nums[j-1] {
-			// 	j++
-			// }
-			// if k <= len(nums)-2 && nums[k] == nums[k+1] {
-			// 	k--
-			// }
 			sum := nums[i] + nums[j] + nums[k]
 			if sum > 0 {
 				k--
@@ -57,6 +49,7 @@ func threeSum(nums []int) [][]int {
 				for j < k && nums[k] == r {
 					k--
 				}
+
 			}
 		}
 
