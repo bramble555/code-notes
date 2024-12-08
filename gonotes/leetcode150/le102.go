@@ -38,21 +38,24 @@ func (q *Queue[T]) Peek() (T, bool) {
 
 func levelOrder(root *TreeNode) [][]int {
 	res := make([][]int, 0)
-	var que = Queue[*TreeNode]{}
-	que.Enqueue(root)
-	for !que.IsEmpty() {
-		size := que.Length()
+	var qe = Queue[*TreeNode]{}
+	if root == nil {
+		return res
+	}
+	qe.Enqueue(root)
+	for !qe.IsEmpty() {
+		qeLen := qe.Length()
 		tempRes := make([]int, 0)
-		for size > 0 {
-			r := que.Dequeue()
-			tempRes = append(tempRes, r.Val)
-			if r.Left != nil {
-				que.Enqueue(r.Left)
+		for qeLen > 0 {
+			node := qe.Dequeue()
+			if node.Left != nil {
+				qe.Enqueue(node.Left)
 			}
-			if r.Right != nil {
-				que.Enqueue(r.Right)
+			if node.Right != nil {
+				qe.Enqueue(node.Right)
 			}
-			size--
+			tempRes = append(tempRes, node.Val)
+			qeLen--
 		}
 		res = append(res, tempRes)
 	}

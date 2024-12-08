@@ -9,7 +9,9 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/mattes/migrate/source/file"
 )
+
 const (
 	user     = "root"
 	password = "123456"
@@ -19,14 +21,13 @@ const (
 // 用来操作数据库，并发安全
 // 不需要进行关闭
 func migration() {
-	migStr := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/t?multiStatements=true",
+	migStr := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/gvb?multiStatements=true",
 		user, password,
 	)
 	db, err := sql.Open("mysql", migStr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.Stats().WaitDuration.Abs()
 	defer db.Close()
 
 	driver, err := mysql.WithInstance(db, &mysql.Config{})
@@ -36,7 +37,7 @@ func migration() {
 	}
 
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://migration",
+		"file://./migration",
 		"t",
 		driver,
 	)

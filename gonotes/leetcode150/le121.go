@@ -1,7 +1,5 @@
 package leetcode150
 
-import "math"
-
 // func maxProfit2(prices []int) int {
 // 	var min int
 // 	var max int
@@ -25,7 +23,7 @@ func maxProfit(prices []int) int {
 	if n == 1 {
 		return 0
 	}
-	maxPurchase := math.MaxInt64
+	maxPurchase := 9999999
 	maxProfit := 0
 	for i := 0; i < n; i++ {
 		maxPurchase = minNums(maxPurchase, prices[i])
