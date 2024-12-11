@@ -204,3 +204,128 @@ github.com/bramble555/blog filippo.io/edwards25519@v1.1.0
 
 如果存在供应工具的配置文件，`init` 会尝试从中导入模块依赖
 
+最好还是 自定义 module-path .
+
+[go mod tidy](https://golang.google.cn/ref/mod#go-mod-tidy)
+
+`go mod tidy` 增加和删除依赖项,确保 `go.mod` 文件与模块中的源代码相匹配,同时更新 go.sum 文件
+
+参数
+
+- -e 使 `go mod tidy` 尝试继续执行，即使在加载包时遇到错误
+- -v  添加和删除的依赖项更加详细 给你打印出来.
+
+[go mod vendor](https://golang.google.cn/ref/mod#go-mod-vendor)
+
+`go mod vendor` 命令用于在主模块的根目录下构建一个名为 `vendor` 的目录,包含依赖项.前面已经讲过 vendor 的作用,这里再次重复一下,当没有网络的时候,使用的依赖项.
+
+参数
+
+- `-e`：在加载包时即使遇到错误，也尝试继续执行（自 Go 1.16 起可用）
+
+- `-v`：添加和删除的依赖项和包更加详细 给你打印出来
+
+- `-o`：（自 Go 1.18 起可用）将 vendored 树输出到指定的目录，而不是默认的 `vendor` 目录。参数可以是绝对路径，也可以是相对于模块根目录的路径
+
+  Example
+
+  ```
+  go mod vendor -o my_vendor
+  ```
+
+  生成 my_vendor 目录(directory)
+
+  [go mod verify](https://golang.google.cn/ref/mod#go-mod-verify)
+
+  `go mod verify` 主要用于 **验证模块缓存中的文件是否被篡改**
+
+  1. **验证模块是否未被修改**：它会检查模块的 `.zip` 文件和提取的目录，确保自下载以来文件的内容没有发生变化
+  2. **校验模块的一致性**：它可以发现模块缓存中是否有文件被篡改或意外修改的情况。
+
+
+
+[go mod why](https://golang.google.cn/ref/mod#go-mod-why)
+
+`go mod why` 用于展示从主模块到指定包的导入路径(最短路径)，帮助你理解为什么某个包或模块会被依赖
+
+Example
+
+```
+$ go mod why golang.org/x/text/language golang.org/x/text/encoding
+# golang.org/x/text/language
+rsc.io/quote
+rsc.io/sampler
+golang.org/x/text/language
+
+# golang.org/x/text/encoding
+(main module does not need package golang.org/x/text/encoding)
+```
+
+参数 
+
+- -m 显示的是模块,而不是包
+- -vendor 忽略主模块以外的 go.mod
+
+
+
+
+
+[go version ](https://go.dev/ref/mod#go-version-m)
+
+```go
+# Print Go version used to build go.
+$ go version
+
+我的电脑
+go version go1.23.3 windows/386
+
+# 打印 build 后的可执行文件版本
+go version D:\language\go\projects\path\bin
+D:\language\go\projects\path\bin\air.exe: go1.23.3
+D:\language\go\projects\path\bin\gomodifytags.exe: go1.23.3
+D:\language\go\projects\path\bin\gopls.exe: go1.23.3
+D:\language\go\projects\path\bin\gotests.exe: go1.23.3
+D:\language\go\projects\path\bin\migrate.exe: go1.23.3
+D:\language\go\projects\path\bin\staticcheck.exe: go1.23.3
+```
+
+参数
+
+- -m 会显示模块版本
+
+
+
+[go clean (https://go.dev/ref/mod#go-clean-modcache)
+
+清空电脑上的 build 和 测试缓存文件,通常位于 GOPATH/pkg/mod.
+
+如果不确定在哪个路径下,  用这个命令 打印 
+
+```
+go env GOMODCACHE
+D:\language\go\projects\path\pkg\mod\cache
+```
+
+参数
+
+- -modcache  删除 **Go 模块缓存**
+
+  通常这些文件默认 只读 提前设置这些文件可读可写 
+
+  ```
+  go env -w GOFLAGS=-modcacherw
+  ```
+
+[Version queries](https://go.dev/ref/mod#version-queries)
+
+比如 go get  或者 go install   等等命令 @后面的内容就是版本的内容
+
+有几个特殊点:
+
+1. 默认情况下，`go list -m` 命令 **不会显示** 被撤销的版本，因为这些版本已被标记为不再有效。为了 **显示撤销的版本**，你需要显式地使用 `-retracted` 标志
+2. **发布版本** 优先于 **预发布版本**.如果版本 `v1.2.2` 和 `v1.2.3-pre` 都可用，`latest` 查询将选择 `v1.2.2`
+
+[Module commands outside a module](https://go.dev/ref/mod#commands-outside)
+
+没有 go.mod  很难,不能 replace,不能 exclude
+
