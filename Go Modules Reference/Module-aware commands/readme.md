@@ -329,3 +329,41 @@ D:\language\go\projects\path\pkg\mod\cache
 
 没有 go.mod  很难,不能 replace,不能 exclude
 
+[go work init](https://golang.google.cn/ref/mod#go-work-init)
+
+在当前目录下 使用 工作区(go work) 模式,使用这个命令的时候,当前的版本直接写入 在 go.work 里面了
+
+参数
+
+- 路径
+
+  go work init 后面的路径就是 使用 go.mod 模式 的路径
+
+[go work edit](https://golang.google.cn/ref/mod#go-work-edit)
+
+看名字就知道了,不用打开文件,直接编辑 go.work 文件
+
+如果未指定文件，`edit` 会在当前目录及其父目录中查找 `go.work` 文件。
+
+参数
+
+- `-fmt`格式化文件
+- `-use=path` 和 `-dropuse=path` 标志用于在 `go.work` 文件的模块目录集合中添加或删除 `use` 指令
+
+- `-go=version` 标志用于设置期望的 Go 语言版本。
+- `-replace=old[@v]=new[@v]`   增加 replace 指令
+- `-dropreplace=old[@v]`  删除 replace 指令
+- `-print` 直接输出 go.work 文件
+- `-json` json 形式 输出 go.work 文件
+
+[go work use](https://golang.google.cn/ref/mod#go-work-use)
+
+后面+路径,添加路径到 go.work 文件. 那 上面 edit 命令已经能添加了,为啥 还有 use,这个支持递归添加!!
+
+参数
+
+- -r   搜索你指定的路径及其子目录,如果有 go.mod 文件,添加到 go.work 文件
+
+[go work sync](https://golang.google.cn/ref/mod#go-work-sync)
+
+检查 go.work 文件里面 的 use 路径(他们这些模块)的相同依赖项 版本是否一致.如果不一致,根据 MVS,选择其中最大的版本更新到 每个模块的 go.mod 文件.
